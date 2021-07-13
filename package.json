@@ -1,7 +1,8 @@
 {
   "name": "@hyrious/esbuild-plugin-svgo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "SVGO plugin for esbuild.",
+  "repository": "hyrious/esbuild-plugin-svgo",
   "main": "index.js",
   "types": "index.ts",
   "files": [

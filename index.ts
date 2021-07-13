@@ -11,8 +11,10 @@ export function svgo(options?: OptimizeOptions): Plugin {
   return {
     name: "svgo",
     setup({ onResolve, onLoad }) {
+      const cwd = process.cwd();
+
       onResolve({ filter: /\.svg$/ }, args => {
-        return { path: path.join(args.resolveDir, args.path), namespace: "svgo" };
+        return { path: path.relative(cwd, path.join(args.resolveDir, args.path)), namespace: "svgo" };
       });
 
       onLoad({ filter: /.*/, namespace: "svgo" }, async args => {

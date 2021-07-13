@@ -8,12 +8,11 @@ async function test(report, plugins, loader) {
     bundle: true,
     plugins,
     loader,
-    outfile: "a.bundle.js",
-    minify: true,
-    write: false,
+    outfile: "out.js",
+    metafile: true,
   });
   const e = (performance.now() - t).toFixed();
-  const n = result.outputFiles[0].contents.byteLength;
+  const n = Object.entries(result.metafile.outputs)[0][1].bytes;
   console.log(report, ":", n, "bytes, in", e, "ms");
 }
 
