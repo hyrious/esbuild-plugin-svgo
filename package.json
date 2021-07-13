@@ -1,0 +1,32 @@
+{
+  "name": "@hyrious/esbuild-plugin-svgo",
+  "version": "0.1.0",
+  "description": "SVGO plugin for esbuild.",
+  "main": "index.js",
+  "types": "index.ts",
+  "files": [
+    "index.ts",
+    "index.js",
+    "index.js.map"
+  ],
+  "scripts": {
+    "build": "esbuild --bundle --external:svgo --platform=node --outfile=index.js --minify --sourcemap --target=node12 index.ts",
+    "test": "npm run build && cd test && node build.js"
+  },
+  "keywords": [
+    "esbuild",
+    "plugin",
+    "svgo",
+    "svg"
+  ],
+  "author": "hyrious <hyrious@outlook.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^16.3.1",
+    "@types/svgo": "^2.3.1",
+    "esbuild": "^0.12.15"
+  },
+  "dependencies": {
+    "svgo": "^2.3.1"
+  }
+}
