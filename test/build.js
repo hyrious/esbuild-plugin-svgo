@@ -10,6 +10,7 @@ async function test(report, plugins, loader) {
     loader,
     outfile: "out.js",
     metafile: true,
+    loader: { '.svg': 'dataurl' }
   });
   const e = (performance.now() - t).toFixed();
   const n = Object.entries(result.metafile.outputs)[0][1].bytes;

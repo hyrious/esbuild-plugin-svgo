@@ -6,22 +6,23 @@
 
 ```js
 const { svgo } = require("@hyrious/esbuild-plugin-svgo");
-// prettier-ignore
+
 require("esbuild").build({
   entryPoints: ["app.js"],
   bundle: true,
   outfile: "out.js",
   plugins: [svgo()],
+  loader: { '.svg': 'dataurl' },
 }).catch(() => process.exit(1));
 ```
 
 ### Options
 
 ```ts
-export function svgo(options?: OptimizeOptions): Plugin;
+export function svgo(config?: Config): Plugin;
 ```
 
-See [SVGO Options](https://github.com/svg/svgo).
+See [SVGO Options](https://github.com/svg/svgo#configuration).
 
 ## License
 

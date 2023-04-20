@@ -1,27 +1,28 @@
 import { Plugin } from "esbuild";
-import fs from "fs";
-import path from "path";
-import { optimize, OptimizeOptions } from "svgo";
+import { readFile } from "fs/promises";
+import { Config, optimize } from "svgo";
 
 /**
+ * Use {@link https://github.com/svg/svgo SVGO} to optimize SVG files on load.
+ * 
+ * @param config See {@link https://github.com/svg/svgo#configuration SVGO configuration} for details.
+ * 
  * @example
+ * ```js
  * svgo({ multipass: true })
+ * ```
  */
-export function svgo(options?: OptimizeOptions): Plugin {
+export function svgo(config?: Config): Plugin {
   return {
     name: "svgo",
-    setup({ onResolve, onLoad }) {
-      const cwd = process.cwd();
-
-      onResolve({ filter: /\.svg$/ }, args => {
-        return { path: path.relative(cwd, path.join(args.resolveDir, args.path)), namespace: "svgo" };
-      });
-
-      onLoad({ filter: /.*/, namespace: "svgo" }, async args => {
-        const raw = await fs.promises.readFile(args.path, "utf-8");
-        const contents = optimize(raw, options).data;
-        return { contents, loader: "dataurl" };
-      });
+    setup({ onLoad }) {
+      onLoad({ filter: /\.svg$/ }, async args => {
+        const raw = await readFile(args.path, "utf-8");
+        const contents = optimize(raw, config).data;
+        return { contents, loader: 'default' };
+      })
     },
   };
 }
+
+export default svgo;
